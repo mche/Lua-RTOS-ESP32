@@ -1,0 +1,36 @@
+do
+local print = net.service.http.print_chunk
+
+
+    local do16 = function ()
+        pwm16:stop()
+        -- Set frequency to Hz
+        pwm16:setfreq(100)
+        pwm16:setduty(0)
+        -- Start the PWM generation
+        pwm16:start()
+
+        for d = 0, 0.5, 0.01 do
+            pwm16:setduty(d)
+            tmr.sleepms(1000)
+        end
+
+        print("The pin "..pio.GPIO16.." is PWMed!")
+    end
+
+
+    if pwm16 == nil then
+        dofile("/mylib/pwm16.lua")
+        print("The pin "..pio.GPIO16.." is now inited!")
+        mylib.pwm16.init()
+        mylib = nil
+    end
+    
+    do16()
+  
+
+-- os.remove('/www/do/pwm16.lua')
+-- os.remove('/www/do/pwm16.luap')
+-- $ ./wcc -p /dev/ttyUSB0 -d -up www/do/pwm16.lua /www/do/pwm16.lua
+
+end

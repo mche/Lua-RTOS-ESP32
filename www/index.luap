@@ -1,0 +1,7 @@
+do
+   local print = net.service.http.print_chunk
+
+   local os, version = os.version()
+   
+   print(os.." -##- "..version) 
+end
